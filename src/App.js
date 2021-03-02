@@ -11,7 +11,8 @@ function App() {
 
     const handleParamChanges = e => {
         const param = e.target.name;
-        const value = e.target.value;
+        const value =
+            e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
         setParams(prevParams => ({ ...prevParams, [param]: value }));
     };
