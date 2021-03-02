@@ -15,7 +15,10 @@ function App() {
     return (
         <Container className="my-4">
             <h1 className="mb-4">Github Jobs</h1>
-            <SearchForm />
+            <SearchForm
+                params={params}
+                handleParamChanges={handleParamChanges}
+            />
         </Container>
     );
 }
