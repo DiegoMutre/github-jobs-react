@@ -3,7 +3,11 @@ import { Container } from "react-bootstrap";
 import SearchForm from "./components/SearchForm";
 
 function App() {
-    const [params, setParams] = useState({});
+    const [params, setParams] = useState({
+        description: "",
+        location: "",
+        full_time: "on" ? "off" : "on",
+    });
 
     const handleParamChanges = e => {
         const param = e.target.name;
