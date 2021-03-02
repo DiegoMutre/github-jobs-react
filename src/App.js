@@ -5,6 +5,13 @@ import SearchForm from "./components/SearchForm";
 function App() {
     const [params, setParams] = useState({});
 
+    const handleParamChanges = e => {
+        const param = e.target.name;
+        const value = e.target.value;
+
+        setParams(prevParams => ({ ...prevParams, [param]: value }));
+    };
+
     return (
         <Container className="my-4">
             <h1 className="mb-4">Github Jobs</h1>
