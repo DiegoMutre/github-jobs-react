@@ -1,3 +1,5 @@
+import { useReducer } from "react";
+
 const ACTIONS = {
     MAKE_REQUEST: "make-request",
     GET_DATA: "get-data",
@@ -12,7 +14,7 @@ const reducer = (state, action) => {
     switch (action.type) {
         case ACTIONS.MAKE_REQUEST:
             return {
-                loadings: true,
+                loading: true,
                 jobs: [],
             };
         default:
@@ -20,4 +22,11 @@ const reducer = (state, action) => {
     }
 };
 
-export default function useFetchJobs(params, page) {}
+const initialState = {
+    loading: true,
+    jobs: [],
+};
+
+export default function useFetchJobs(params, page) {
+    const [state, dispatch] = useReducer(reducer, initialState);
+}
