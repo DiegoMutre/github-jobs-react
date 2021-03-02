@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import { Col, Form } from "react-bootstrap";
 
-const SearchForm = () => {
+const SearchForm = ({ params, handleParamChanges }) => {
     return (
         <Form className="mb-4">
             <Form.Row className="align-items-end">
@@ -24,6 +25,11 @@ const SearchForm = () => {
             </Form.Row>
         </Form>
     );
+};
+
+SearchForm.propTypes = {
+    params: PropTypes.object.isRequired,
+    handleParamChanges: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
