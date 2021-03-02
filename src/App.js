@@ -6,7 +6,7 @@ function App() {
     const [params, setParams] = useState({
         description: "",
         location: "",
-        full_time: "on" ? "off" : "on",
+        full_time: false,
     });
 
     const handleParamChanges = e => {
