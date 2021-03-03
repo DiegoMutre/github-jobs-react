@@ -15,6 +15,7 @@ const reducer = (state, action) => {
     switch (action.type) {
         case ACTIONS.MAKE_REQUEST:
             return {
+                ...state,
                 loading: true,
                 jobs: [],
             };
@@ -44,6 +45,7 @@ const reducer = (state, action) => {
 const initialState = {
     loading: true,
     jobs: [],
+    has_next_page: false,
 };
 
 export default function useFetchJobs(params, page) {
