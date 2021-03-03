@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import SearchForm from "./components/SearchForm";
+import useFetchJobs from "./hooks/useFetchJobs";
 
 function App() {
     const [params, setParams] = useState({
@@ -9,6 +10,8 @@ function App() {
         full_time: false,
     });
     const [page, setPage] = useState(1);
+
+    const { loading, jobs, error } = useFetchJobs(params, page);
 
     const handleParamChanges = e => {
         const param = e.target.name;
@@ -25,6 +28,8 @@ function App() {
                 params={params}
                 handleParamChanges={handleParamChanges}
             />
+            {loading && <h1>Loading...</h1>}
+            {error && <h1>Error, Try refreshing.</h1>}
         </Container>
     );
 }
