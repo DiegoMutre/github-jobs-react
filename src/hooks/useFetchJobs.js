@@ -24,6 +24,13 @@ const reducer = (state, action) => {
                 loading: false,
                 jobs: action.payload,
             };
+        case ACTIONS.ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                jobs: [],
+            };
         default:
             return state;
     }
@@ -52,6 +59,12 @@ export default function useFetchJobs(params, page) {
             })
             .then(response => {
                 dispatch({ type: ACTIONS.GET_DATA, payload: response.data });
+            })
+            .catch(err => {
+                if (axios.isCancel(err)) return;
+                dispatch({ type: ACTIONS.ERROR, payload: err });
             });
     }, [page, params]);
+
+    return state;
 }
