@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import Job from "./components/Job";
 import SearchForm from "./components/SearchForm";
 import useFetchJobs from "./hooks/useFetchJobs";
 
@@ -30,6 +31,9 @@ function App() {
             />
             {loading && <h1>Loading...</h1>}
             {error && <h1>Error, Try refreshing.</h1>}
+            {jobs.map(job => (
+                <Job key={job.id} job={job} />
+            ))}
         </Container>
     );
 }
