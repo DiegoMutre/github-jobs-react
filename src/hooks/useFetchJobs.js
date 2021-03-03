@@ -86,6 +86,10 @@ export default function useFetchJobs(params, page) {
                     type: ACTIONS.UPDATE_HAS_NEXT_PAGE,
                     payload: response.data.length !== 0,
                 });
+            })
+            .catch(err => {
+                if (axios.isCancel(err)) return;
+                dispatch({ type: ACTIONS.ERROR, payload: err });
             });
     }, [page, params]);
 
