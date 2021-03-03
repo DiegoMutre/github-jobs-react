@@ -31,6 +31,11 @@ const reducer = (state, action) => {
                 error: action.payload,
                 jobs: [],
             };
+        case ACTIONS.UPDATE_HAS_NEXT_PAGE:
+            return {
+                ...state,
+                has_next_page: action.payload,
+            };
         default:
             return state;
     }
@@ -63,6 +68,24 @@ export default function useFetchJobs(params, page) {
             .catch(err => {
                 if (axios.isCancel(err)) return;
                 dispatch({ type: ACTIONS.ERROR, payload: err });
+            });
+
+        const cancelToken2 = axios.CancelToken.source();
+
+        axios
+            .get(BASE_URL, {
+                cancelToken: cancelToken2.token,
+                params: {
+                    markdown: true,
+                    page: page + 1,
+                    ...params,
+                },
+            })
+            .then(response => {
+                dispatch({
+                    type: ACTIONS.UPDATE_HAS_NEXT_PAGE,
+                    payload: response.data.length !== 0,
+                });
             });
     }, [page, params]);
 
