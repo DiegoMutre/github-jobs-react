@@ -1,4 +1,5 @@
-import { useReducer } from "react";
+import axios from "axios";
+import { useEffect, useReducer } from "react";
 
 const ACTIONS = {
     MAKE_REQUEST: "make-request",
@@ -29,4 +30,23 @@ const initialState = {
 
 export default function useFetchJobs(params, page) {
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    useEffect(() => {
+        const cancelToken1 = axios.CancelToken.source();
+        dispatch({ type: ACTIONS.MAKE_REQUEST });
+
+        axios
+            .get(BASE_URL, {
+                cancelToken: cancelToken1.token,
+                params: {
+                    markdown: true,
+                    page,
+                    ...params,
+                },
+            })
+            .then(response => {
+                // *TODO: Put the response in the state.
+                console.log(response);
+            });
+    }, [page, params]);
 }
