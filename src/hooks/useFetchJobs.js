@@ -18,6 +18,12 @@ const reducer = (state, action) => {
                 loading: true,
                 jobs: [],
             };
+        case ACTIONS.GET_DATA:
+            return {
+                ...state,
+                loading: false,
+                jobs: action.payload,
+            };
         default:
             return state;
     }
@@ -45,8 +51,7 @@ export default function useFetchJobs(params, page) {
                 },
             })
             .then(response => {
-                // *TODO: Put the response in the state.
-                console.log(response);
+                dispatch({ type: ACTIONS.GET_DATA, payload: response.data });
             });
     }, [page, params]);
 }
