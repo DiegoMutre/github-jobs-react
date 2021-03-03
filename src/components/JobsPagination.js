@@ -7,6 +7,21 @@ const JobsPagination = ({ page, setPage, has_next_page }) => {
     return (
         <Pagination>
             {page !== 1 && <Pagination.Prev onClick={() => adjustPage(-1)} />}
+            {page !== 1 && (
+                <Pagination.Item onClick={() => setPage(1)}>1</Pagination.Item>
+            )}
+            {page > 2 && <Pagination.Ellipsis />}
+            {page > 2 && (
+                <Pagination.Item onClick={() => adjustPage(-1)}>
+                    {page - 1}
+                </Pagination.Item>
+            )}
+            {has_next_page && (
+                <Pagination.Item onClick={() => adjustPage(1)}>
+                    {page + 1}
+                </Pagination.Item>
+            )}
+            {has_next_page && <Pagination.Next onClick={() => adjustPage(1)} />}
         </Pagination>
     );
 };
